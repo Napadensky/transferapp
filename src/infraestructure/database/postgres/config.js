@@ -12,10 +12,8 @@ const dialect = process.env.SEQUELIZE_DB_DIALECT;
 
 
 const sequelize = new Sequelize(database, username, password, {
-  port, host, dialect, logging: false, dialectOptions: {
-    socketPath: host, 
-  },
-},);
+  port, host, dialect, logging: false
+});
 
 const serverPostgres = async () => {
   try {
