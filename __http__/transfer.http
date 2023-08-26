@@ -1,0 +1,11 @@
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwLCJyb2xlIjoiVVNFUiIsImlhdCI6MTY5Mjk5MDU3MCwiZXhwIjoxNjkyOTk0MTcwfQ.Pq3grn0vi4xCF60Zf7JD58emAB5Y7tYKz22r1UK4d9o
+ 
+POST http://localhost:8080/transfers HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{ 
+    "fromAccountId": "17",
+    "toAccountId": "5",
+    "amount": 100
+}

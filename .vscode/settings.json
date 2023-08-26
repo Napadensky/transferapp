@@ -1,0 +1,8 @@
+{
+  "files.defaultLanguage": "javascript",
+  "javascript.validate.enable": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "files.associations": { "*.js": "javascript" }
+}

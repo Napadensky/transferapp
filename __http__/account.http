@@ -1,0 +1,36 @@
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5Mjk5Mzc1NywiZXhwIjoxNjkyOTk3MzU3fQ.kpDtLTwGubLfq_qarU-24OsMI5oD5H8BYJWSoe5ETgg
+@URL=http://localhost:8080
+
+
+# crete account or re-open 'Savings' | 'Current' | 'BasicSavings'
+POST {{URL}}/accounts HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{ 
+  "accountType": "Current" 
+}
+
+
+###get account by tokens userId 
+GET {{URL}}/accounts HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+
+### get account by tokens userId
+DELETE {{URL}}/accounts/17/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+
+### get account by tokens userId
+GET {{URL}}/accounts/17/balances?page=2&size=5 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+
+### get account by tokens userId
+GET {{URL}}/accounts/17/transactions?page=2&size=5 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}

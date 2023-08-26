@@ -1,0 +1,27 @@
+### REGISTER
+@URL=http://localhost:8081
+POST {{URL}}/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "usuarioTestw0201",
+    "password": "passwordTest001"
+}
+
+### LOGIN
+POST {{URL}}/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "usuarioTestw0201",
+    "password": "passwordTest001"
+}
+
+### LOGIN
+POST {{URL}}/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "Elian_Lubowitz",
+    "password": "VC_VD2lsViP3wWt"
+}
