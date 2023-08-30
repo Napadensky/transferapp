@@ -58,7 +58,7 @@ const TransactionRepository = {
       totalPage: paginate.count / size,
       totalItems: paginate.count,
       currentPage: page,
-      transactions: paginate.rows.map(transaction => transaction.toJSON())
+      transactions: paginate.rows.map(transaction => transaction?.toJSON())
     }
   }
 }

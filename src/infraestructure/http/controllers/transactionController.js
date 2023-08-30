@@ -25,8 +25,7 @@ const makeTransfer = async (req, res) => {
 }
 
 const getTransactionHistory = async (req, res) => {
-  try {
-    console.log("========= getTransactionHistory")
+  try { 
     const { page, size } = req.query;
     const { accountId } = req.params;
  

@@ -39,12 +39,13 @@ const BalanceRepository = {
     const offset = (page - 1) * size;
     const limit = size;
     const paginate = await Balance.findAndCountAll({ where, offset, limit });
+    const hasData = paginate.rows.length > 0;
     return {
       pages: Math.ceil(paginate.count / size),
       totalPage: paginate.count / size,
       totalItems: paginate.count,
       currentPage: page,
-      balances: paginate.rows.map(balance => balance.toJSON())
+      balances: hasData ? paginate.rows.map(balance => balance?.toJSON()) : []
     }
   },
 

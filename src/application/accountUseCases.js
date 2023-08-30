@@ -3,7 +3,7 @@ accountUseCases.createAccount = async (accountData, AccountRepository) => {
   const checkAccount = await AccountRepository.findByTypeAccount(accountData);
 
   if (checkAccount && checkAccount.status == "OPEN") throw new Error('AccountType already exists')
-  if (checkAccount.status == "CLOSED") {
+  if (checkAccount?.status == "CLOSED") {
     const oldAccount = await AccountRepository.updateAccountStatus(checkAccount.id, "OPEN")
     return oldAccount
   }
@@ -18,7 +18,6 @@ accountUseCases.getAccounts = async (accountData, AccountRepository) => {
 
 accountUseCases.getBalance = async (accountData, BalanceRepository, AccountRepository) => {
   const { userId, accountId, role } = accountData
-  console.log("=========")
 
   const isAdmin = role == "ADMIN";
   const isOwner = await AccountRepository.isOwner({ fromAccountId: accountId, userId });
@@ -31,7 +30,7 @@ accountUseCases.getBalance = async (accountData, BalanceRepository, AccountRepos
 
   if (!balance) { throw new Error('Balance not found') }
 
-  return { account: account.toJSON() , balance : balance };
+  return { account: account?.toJSON(), balance: balance };
 };
 
 accountUseCases.closeAccount = async (accountData, AccountRepository) => {
@@ -73,7 +72,6 @@ accountUseCases.makeTransaction = async (transferData, AccountRepository, Balanc
 
 accountUseCases.isOwner = async (accountData, AccountRepository) => {
   const { fromAccountId, userId } = accountData;
-  console.log("========= getTransactionHistory", fromAccountId, userId)
 
   const isOwnerAccount = await AccountRepository.isOwner({ fromAccountId: Number(fromAccountId), userId })
   return isOwnerAccount
@@ -99,6 +97,5 @@ accountUseCases.applyMonthlyInterest = async (AccountRepository, BalanceReposito
     await BalanceRepository.create({ accountId: account.id, beforeBalance: account.balance, afterBalance: account.balance, amount: interest, lastUpdate: new Date() })
   }
 }
-
 
 module.exports = accountUseCases;

@@ -4,15 +4,13 @@ const httpStatus = require('http-status');
 const { UserRepository } = require('../../repositories/userRepository');
 
 const register = async (req, res) => {
-  try {  
-    console.log("wwwwwwwwwwwwwwwwwwwwwwwwwfirst")
+  try {
     const newUser = await userUseCases.registerUser(req.body, UserRepository);
     responseSuccess(res, { userId: newUser.id });
-  } catch (error) { 
+  } catch (error) {
     if (error.message === 'User already exists') {
       responseError(res, error.message, null, httpStatus.BAD_REQUEST);
-    } else {
-      console.log(error.message)
+    } else { 
       responseError(res, 'Registration failed');
     }
   }

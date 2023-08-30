@@ -14,19 +14,11 @@ const httpStatus = require('http-status');
 const router = express.Router();
 
 const manageRouter = () => {
-  const routes = [router.get('/health', (_req, res) => {
+  const routes = [router.get('/health', async (_req, res) => {
     const filePath = path.join(__dirname, '../../../../demoUsers.json');
+    const data = await fs.readFileSync(filePath, 'utf8');
+    responseSuccess(res, { message: "OK", usersdemo: data }, httpStatus.OK)
 
-    fs.readFile(filePath, 'utf8', (err, data) => {
-      if (err) {
-        res.status(500).send('Error al leer el archivo');
-        return;
-      }
-      const convertJSON = JSON.parse(data)
-      console.log(convertJSON)
-      responseSuccess(res, { message: "OK", usersdemo: convertJSON }, httpStatus.OK)
-
-    });
   })]
 
   routes.push(router.use("/api/v1/auth", userRoute))

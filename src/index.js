@@ -12,4 +12,6 @@ console.log("STARTING APP...")
 console.log("===============")
 
 serverPostgres()
-serverHttp()
+const app = serverHttp()
+
+module.exports = app

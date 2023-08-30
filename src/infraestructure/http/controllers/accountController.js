@@ -32,11 +32,11 @@ const getAccountDetails = async (req, res) => {
   try {
     const { page, size } = req.query;
     const { accountId } = req.params;
-
+    
     const accountData = { userId: req.userId, accountId, role: req.role, page, size };
-
+    
     const accounts = await accountUseCases.getBalance(accountData, BalanceRepository, AccountRepository);
-
+    
     responseSuccess(res, { ...accounts }, httpStatus.OK);
   } catch (error) {
     responseError(res, error.message, [], httpStatus.BAD_REQUEST);

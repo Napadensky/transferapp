@@ -10,7 +10,7 @@ Account.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'Users', 
+      model: 'Users',
       key: 'id'
     }
   },
@@ -35,7 +35,7 @@ Account.init({
 
 const AccountRepository = {
   async findByUserId(userId) {
-    return (await Account.findAll({ where: { userId, status: "OPEN" } })).map(account => account.toJSON());
+    return (await Account.findAll({ where: { userId, status: "OPEN" } })).map(account => account?.toJSON());
   },
 
   async create(accountData) {
@@ -47,17 +47,16 @@ const AccountRepository = {
   },
 
   async findByTypeAccount({ accountType, userId }) {
-    const res =  await Account.findOne({ where: { accountType, userId } });
-    console.log(res.toJSON())
-    return res 
+    const res = await Account.findOne({ where: { accountType, userId } });
+    return res
   },
 
-  async findByTypeAccountId(accountId) { 
-    return await Account.findOne({ where: { id: accountId , status: "OPEN"} })
+  async findByTypeAccountId(accountId) {
+    return await Account.findOne({ where: { id: accountId, status: "OPEN" } })
   },
 
-  async isOwner({ fromAccountId, userId }) { 
-    const account = await Account.findOne({ where: { id: fromAccountId , userId} }) 
+  async isOwner({ fromAccountId, userId }) {
+    const account = await Account.findOne({ where: { id: fromAccountId, userId } })
     if (account?.userId == userId) return true
     return false
   },
@@ -71,7 +70,6 @@ const AccountRepository = {
   },
 
   async update(accountId, { balance }) {
-    console.log( { balance })
     return await Account.update({ balance }, { where: { id: accountId, status: "OPEN" } });
   },
 
