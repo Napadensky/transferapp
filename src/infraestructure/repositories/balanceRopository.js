@@ -2,12 +2,23 @@ const { sequelize } = require("../database/postgres/config")
 const { DataTypes, Model } = require('sequelize');
 const { Account } = require("./accountRepository");
 
+let modelName = 'Balance';
+let referenceName = 'Accounts';
+
+if (process.env.NODE_ENV === 'test') {
+  modelName = 'Balance_Test';
+  referenceName = 'Account_Tests';
+}
 class Balance extends Model { }
 
 Balance.init({
   accountId: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: referenceName,
+      key: 'id'
+    },
   },
   beforeBalance: {
     type: DataTypes.INTEGER,
@@ -28,7 +39,7 @@ Balance.init({
 
 }, {
   sequelize,
-  modelName: 'Balance'
+  modelName
 });
 
 Balance.belongsTo(Account, { foreignKey: 'accountId', as: 'account' });

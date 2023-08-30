@@ -3,6 +3,14 @@ const { DataTypes, Model } = require('sequelize');
 
 const { User } = require('./userRepository');
 
+let modelName = 'Account';
+let referenceName = 'Users';
+
+if (process.env.NODE_ENV === 'test') {
+  modelName = 'Account_Test';
+  referenceName = 'User_Tests';
+}
+
 class Account extends Model { }
 
 Account.init({
@@ -10,7 +18,7 @@ Account.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'Users',
+      model: referenceName,
       key: 'id'
     }
   },
@@ -30,7 +38,7 @@ Account.init({
   }
 }, {
   sequelize,
-  modelName: 'Account'
+  modelName
 });
 
 const AccountRepository = {

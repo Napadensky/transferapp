@@ -4,9 +4,9 @@
   "description": "",
   "main": "./src/index.js",
   "scripts": {
-    "test:coverage": "cross-env NODE_ENV=test jest --coverage",
-    "test": "cross-env NODE_ENV=test jest --verbose --silent",
-    "test:watch": "cross-env NODE_ENV=test && jest --detectOpenHandles --watch",
+    "test:coverage": "cross-env NODE_ENV=test jest  --detectOpenHandles --coverage",
+    "test": "cross-env NODE_ENV=test jest --detectOpenHandles --verbose --silent",
+    "test:watch": "cross-env NODE_ENV=test && jest  --detectOpenHandles --watch",
     "dev": "nodemon ./src/index.js",
     "start": "node ./src/index.js",
     "db:create": "sequelize db:create",

@@ -1,6 +1,12 @@
 const { sequelize } = require("../database/postgres/config")
 const { DataTypes, Model } = require('sequelize');
 
+let modelName = 'User';
+
+if (process.env.NODE_ENV === 'test') {
+  modelName = 'User_Test';
+}
+
 class User extends Model { }
 
 User.init({
@@ -20,7 +26,7 @@ User.init({
   }
 }, {
   sequelize,
-  modelName: 'User'
+  modelName
 });
 
 const UserRepository = {

@@ -3,6 +3,7 @@ const express = require('express');
 const appRoot = require('app-root-path');
 const httpStatus = require('http-status');
 const jwt = require('jsonwebtoken');
+const { Balance } = require('../../../../src/infraestructure/repositories/balanceRopository');
 
 const { Account } = require(appRoot + '/src/infraestructure/repositories/accountRepository');
 const route = require(appRoot + '/src/infraestructure/http/routers/index')
@@ -20,14 +21,12 @@ describe('Balance Routes', () => {
 
   describe('GET api/v1/accounts/:accountId/balances', () => {
 
-    beforeAll(async () => {
-    });
+    beforeAll(async () => await Balance.sync({ force: true }));
 
     it('should return 200 when give balance', async () => {
       const response = await request
-      .get('/api/v1/accounts/5/balances?page=2&size=5')
-      .auth(token, { type: 'bearer' })
- 
+        .get('/api/v1/accounts/5/balances?page=2&size=5')
+        .auth(token, { type: 'bearer' })
       expect(response.status).toBe(httpStatus.OK);
     });
 

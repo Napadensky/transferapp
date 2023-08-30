@@ -18,7 +18,7 @@ describe('User Routes login', () => {
   describe('POST api/v1/auth/login', () => {
 
     beforeAll(async () => {
-      await User.sync({})
+      await User.sync({force: true})
       const found = await User.findOne({ where: { username: 'test001' } })
       if (found) await User.destroy({ where: { username: 'test001' } })
     });

@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 
 const { Transaction } = require(appRoot + '/src/infraestructure/repositories/transactionRepository');
 const { Account } = require(appRoot + '/src/infraestructure/repositories/accountRepository');
+const { User } = require(appRoot + '/src/infraestructure/repositories/userRepository');
 
 const route = require(appRoot + '/src/infraestructure/http/routers/index')
 
@@ -17,16 +18,20 @@ app.use(route())
 const request = supertest(app)
 const jwtSecret = process.env.JWT_SECRET_KEY
 
-const tokenOne = jwt.sign({ userId: 1, role: "ADMIN" }, jwtSecret, { expiresIn: '1h' }); 
+const tokenOne = jwt.sign({ userId: 1, role: "ADMIN" }, jwtSecret, { expiresIn: '1h' });
 
 describe('Transaction Routes', () => {
 
   describe('POST api/v1/transaction', () => {
 
     beforeAll(async () => {
-
-      await Transaction.sync({})
-      Transaction.destroy({ where: {} })
+      try {
+        await User.sync({ force: true })
+        await Account.sync({ force: true })
+        await Transaction.sync({ force: true })
+      } catch (error) {
+        console.log(error.message)
+      }
 
     });
 

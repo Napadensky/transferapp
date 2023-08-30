@@ -3,6 +3,14 @@ const { DataTypes, Model } = require('sequelize');
 
 const { Account } = require('./accountRepository');
 
+let modelName = 'Transaction';
+let referenceName = 'Accounts';
+
+if (process.env.NODE_ENV === 'test') {
+  modelName = 'Transaction_Test';
+  referenceName = 'Account_Tests';
+}
+
 class Transaction extends Model { }
 
 Transaction.init({
@@ -10,7 +18,7 @@ Transaction.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'Accounts', 
+      model: referenceName,
       key: 'id'
     }
   },
@@ -18,7 +26,7 @@ Transaction.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'Accounts',
+      model: referenceName,
       key: 'id'
     }
   },
@@ -34,7 +42,7 @@ Transaction.init({
   }
 }, {
   sequelize,
-  modelName: 'Transaction'
+  modelName
 });
 
 Transaction.belongsTo(Account, { foreignKey: 'fromAccountId', as: 'fromAccount' });

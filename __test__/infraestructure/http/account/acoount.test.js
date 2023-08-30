@@ -21,9 +21,7 @@ describe('Account Routes', () => {
   describe('POST api/v1/account', () => {
 
     beforeAll(async () => {
-
-      await Account.sync({})
-      Account.destroy({ where: {} })
+      await Account.sync({ force: true })
     });
 
     it('should return 201 when account is created', async () => {
