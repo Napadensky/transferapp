@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 
-const { responseSuccess } = require('../response');
+const { responseSuccess, responseError } = require('../response');
 
 const authMiddleware = require('../middlewares/authMiddleware');
 
@@ -15,31 +15,55 @@ const router = express.Router();
 
 const manageRouter = () => {
   const routes = [router.get('/api/v1/health', (_req, res) => {
-    const filePath = path.join(__dirname, '../../../../demoUsers.json');
-
-    fs.readFile(filePath, 'utf8', (err, data) => {
-      if (err) {
-        res.status(500).send('Error al leer el archivo');
-        return;
-      }
-
-      // Verificar si data tiene contenido
-      if (!data || data.trim() === '') {
-        res.status(400).send('El archivo JSON está vacío');
-        return;
-      }
-
-      let convertJSON;
-      try {
-        convertJSON = JSON.parse(data);
-        console.log(convertJSON);
-        responseSuccess(res, { message: "OK", usersdemo: convertJSON }, httpStatus.OK);
-      } catch (error) {
-        console.error('Error al analizar el JSON:', error);
-        res.status(500).send('El contenido del archivo no es un JSON válido');
-      }
-    });
-  })];
+    try {
+      const datademo = [
+        {
+          "name": "Stuart.Beer",
+          "pass": "qfIdzdtNxDqLWBj"
+        },
+        {
+          "name": "Hadley_OReilly",
+          "pass": "YnwcGHcK5WKEZPN"
+        },
+        {
+          "name": "Baron.Bashirian9",
+          "pass": "mh6w21nlSfgT5Hv"
+        },
+        {
+          "name": "Floyd.Schuster",
+          "pass": "1gGL6VNxh6g5V1k"
+        },
+        {
+          "name": "Seth.Abbott38",
+          "pass": "G16QeE4VwHvaKsE"
+        },
+        {
+          "name": "Curtis.Morar-Schiller",
+          "pass": "wTLEyjzM0CkoNXC"
+        },
+        {
+          "name": "Frederic.Waters",
+          "pass": "5CIKIILYvmm_nX9"
+        },
+        {
+          "name": "Erwin.OKon22",
+          "pass": "qoNCbT7v_erRx1A"
+        },
+        {
+          "name": "Felix.Schmitt57",
+          "pass": "Fse2QgsHqpABB9V"
+        },
+        {
+          "name": "Ari.Nolan",
+          "pass": "6Cg4YcKeKZMOykw"
+        }
+      ]
+      responseSuccess(res,{message:"OK", datademo}, httpStatus.OK)
+    } catch (error) {
+      responseError(res, error, {})
+    }
+  }
+  )];
 
   routes.push(router.use("/api/v1/auth", userRoute))
   routes.push(router.use("/api/v1/accounts", authMiddleware, accountRoute))
