@@ -7,6 +7,7 @@ module.exports = {
     "password": process.env.SEQUELIZE_DB_PASSWORD,
     "host": process.env.SEQUELIZE_DB_HOST,
     "dialect": process.env.SEQUELIZE_DB_DIALECT,
-    "port": process.env.SEQUELIZE_DB_PORT
+    "port": process.env.SEQUELIZE_DB_PORT,
+    "dialectOptions" : { ssl: { require: true, rejectUnauthorized: false } }
   }
 }
