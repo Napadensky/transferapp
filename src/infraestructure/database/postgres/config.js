@@ -10,9 +10,10 @@ const host = process.env.SEQUELIZE_DB_HOST;
 const port = process.env.SEQUELIZE_DB_PORT;
 const dialect = process.env.SEQUELIZE_DB_DIALECT;
 
+const dialectOptions = { ssl: { require: true, rejectUnauthorized: false } }
 
 const sequelize = new Sequelize(database, username, password, {
-  port, host, dialect, logging: false
+  port, host, dialect, logging: false, dialectOptions
 });
 
 const serverPostgres = async () => {
